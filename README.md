@@ -42,7 +42,7 @@ It works without an internet connection.
 
 The page explains each step in detail, with help for common problems.
 
-![Dark mode](docs/lists-dark.png)
+![Dark mode](lists-dark.png)
 
 ## Staying safe
 
