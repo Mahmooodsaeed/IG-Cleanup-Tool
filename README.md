@@ -4,7 +4,7 @@
 
 IG Cleanup is a single web page that runs entirely in your own browser. You open Instagram's official data export in it, choose who to remove, and it gives you a small script that unfollows those accounts slowly in your own logged-in Instagram tab. There's no server, no login and no third-party app.
 
-![IG Cleanup: choose who to remove](docs/lists-light.png)
+![IG Cleanup: choose who to remove](lists-light.png)
 
 ## What it does
 
