@@ -1,0 +1,21 @@
+{
+  "name": "instagram-cleanup-tool",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Clean up your Instagram following list and cancel old follow requests. Runs entirely in your browser.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mahmooodsaeed/Instagram-Cleanup-Tool.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20.15"
+  },
+  "scripts": {
+    "test": "node tests/e2e.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  }
+}

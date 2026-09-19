@@ -1,0 +1,130 @@
+{
+  "relationships_following": [
+    {
+      "title": "sunny.days",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/sunny.days",
+          "timestamp": 1500000000
+        }
+      ]
+    },
+    {
+      "title": "pixel.parrot",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/pixel.parrot",
+          "timestamp": 1503456000
+        }
+      ]
+    },
+    {
+      "title": "the_bread_lab",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/the_bread_lab",
+          "timestamp": 1506912000
+        }
+      ]
+    },
+    {
+      "title": "marco.travels",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/marco.travels",
+          "timestamp": 1510368000
+        }
+      ]
+    },
+    {
+      "title": "noor.designs",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/noor.designs",
+          "timestamp": 1513824000
+        }
+      ]
+    },
+    {
+      "title": "urban.sketcher",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/urban.sketcher",
+          "timestamp": 1517280000
+        }
+      ]
+    },
+    {
+      "title": "coffee_and_code",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/coffee_and_code",
+          "timestamp": 1520736000
+        }
+      ]
+    },
+    {
+      "title": "lena.films",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/lena.films",
+          "timestamp": 1524192000
+        }
+      ]
+    },
+    {
+      "title": "mountain.miles",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/mountain.miles",
+          "timestamp": 1527648000
+        }
+      ]
+    },
+    {
+      "title": "tiny.gardens",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/tiny.gardens",
+          "timestamp": 1531104000
+        }
+      ]
+    },
+    {
+      "title": "retro.wheels",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/retro.wheels",
+          "timestamp": 1534560000
+        }
+      ]
+    },
+    {
+      "title": "night.owl.photo",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/night.owl.photo",
+          "timestamp": 1538016000
+        }
+      ]
+    },
+    {
+      "title": "studio.kiko",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/studio.kiko",
+          "timestamp": 1541472000
+        }
+      ]
+    },
+    {
+      "title": "daily.doodles",
+      "string_list_data": [
+        {
+          "href": "https://www.instagram.com/_u/daily.doodles",
+          "timestamp": 1544928000
+        }
+      ]
+    }
+  ]
+}

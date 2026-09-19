@@ -1,0 +1,15 @@
+# Keep your real Instagram export out of the repository
+*.zip
+instagram-*/
+my-data/
+followers*.json
+following*.json
+pending_follow_requests*.json
+recent_follow_requests*.json
+!sample-data/*.json
+
+# Tooling
+node_modules/
+package-lock.json
+.DS_Store
+Thumbs.db
