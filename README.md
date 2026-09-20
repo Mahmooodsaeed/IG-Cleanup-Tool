@@ -2,7 +2,7 @@
 
 **Clean up your Instagram following list and cancel old follow requests, without giving your password to anyone.**
 
-**[Open the tool](https://mahmooodsaeed.github.io/Instagram-Cleanup-Tool/)** · Free · Open source · Runs entirely in your browser
+**[Open the tool](https://mahmooodsaeed.github.io/IG-Cleanup-Tool/)** · Free · Open source · Runs entirely in your browser
 
 IG Cleanup is a single web page. You open Instagram's official data export in it, choose who to remove, and it gives you a small script that unfollows those accounts slowly in your own logged-in Instagram tab. There's no server, no login and no third-party app.
 
@@ -20,7 +20,7 @@ IG Cleanup is a single web page. You open Instagram's official data export in it
 
 ### Option 1: Use the online version (easiest)
 
-Open **https://mahmooodsaeed.github.io/Instagram-Cleanup-Tool/** and follow the steps on the page.
+Open **https://mahmooodsaeed.github.io/IG-Cleanup-Tool/** and follow the steps on the page.
 
 Your files are still read only on your own computer. The page is just delivered from GitHub, and it can't send anything back.
 
