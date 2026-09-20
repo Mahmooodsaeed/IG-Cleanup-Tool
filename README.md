@@ -78,14 +78,14 @@ IG Cleanup is a static, local-first web app: one HTML file with vanilla JavaScri
 
 ### Highlights
 
-- 🔒 **Privacy enforced by the browser.** It's not just a promise: `default-src 'none'` blocks all network access from the page.
-- 📦 **ZIP reading in the browser without libraries.** A small reader walks the ZIP's central directory and inflates files with the native `DecompressionStream` API.
-- 🔄 **Tolerant parsing.** It handles several Instagram export formats, follower lists split across files, and renamed downloads. It skips unrelated export files such as followed hashtags and received requests.
-- 🖱️ **UI-driven automation.** The generated script opens each profile in a helper window and clicks Instagram's own buttons. It doesn't call Instagram's internal API.
-- 🛑 **Defensive stop conditions.** It stops on Instagram's "Try Again Later" message, confirms each unfollow before counting it, and stops after repeated failures.
-- 💾 **Resumable progress.** Lists, Keep/Done marks and settings are kept in `localStorage`.
-- 🧪 **End-to-end tests** with Playwright against a mock Instagram site. They never touch the real one.
-- 📱 **Responsive, light/dark, keyboard-accessible** interface.
+- **Privacy enforced by the browser.** It's not just a promise: `default-src 'none'` blocks all network access from the page.
+- **ZIP reading in the browser without libraries.** A small reader walks the ZIP's central directory and inflates files with the native `DecompressionStream` API.
+- **Tolerant parsing.** It handles several Instagram export formats, follower lists split across files, and renamed downloads. It skips unrelated export files such as followed hashtags and received requests.
+- **UI-driven automation.** The generated script opens each profile in a helper window and clicks Instagram's own buttons. It doesn't call Instagram's internal API.
+- **Defensive stop conditions.** It stops on Instagram's "Try Again Later" message, confirms each unfollow before counting it, and stops after repeated failures.
+- **Resumable progress.** Lists, Keep/Done marks and settings are kept in `localStorage`.
+- **End-to-end tests** with Playwright against a mock Instagram site. They never touch the real one.
+- **Responsive, light/dark, keyboard-accessible** interface.
 
 ### How data flows
 
