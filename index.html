@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; base-uri 'none'; form-action 'none'">
 <meta name="description" content="Clean up your Instagram following list and cancel old follow requests. Runs entirely in your browser, with no login and no third-party access.">
 <title>IG Cleanup</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%236d5dfc'/%3E%3Cpath d='M10 16.5l4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='15' y='1' width='2' height='5' fill='%234331c9'/%3E%3Ccircle cx='16' cy='2.5' r='2.5' fill='%23ffb84d'/%3E%3Crect x='2' y='6' width='28' height='22' rx='10' fill='%236d5dfc'/%3E%3Crect x='6' y='11' width='20' height='12' rx='6' fill='%2315122e'/%3E%3Ccircle cx='12' cy='17' r='2.4' fill='%238ff3ff'/%3E%3Ccircle cx='20' cy='17' r='2.4' fill='%238ff3ff'/%3E%3C/svg%3E">
 <style>
 :root{
   --bg:#f7f7fb; --surface:#ffffff; --surface-2:#f2f2f7; --ink:#15151c; --ink-2:#4b4b5a; --mute:#80808f;
@@ -16,6 +16,8 @@
   --ok:#14804a; --ok-soft:#e6f6ec; --warn:#a15c00; --warn-soft:#fff4e0; --bad:#c62a2a; --bad-soft:#fdecec;
   --shadow:0 1px 2px rgba(20,20,40,.04),0 4px 16px rgba(20,20,40,.05);
   --r:14px; --r-sm:10px;
+  --font-sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
@@ -38,11 +40,11 @@
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 var(--font-sans);-webkit-font-smoothing:antialiased}
 a{color:var(--accent-text);text-decoration:none}
 a:hover{text-decoration:underline}
-kbd{font:600 12px/1 ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--surface);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;padding:3px 6px;white-space:nowrap}
-code{font:13px ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+kbd{font:600 12px/1 var(--font-mono);background:var(--surface);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;padding:3px 6px;white-space:nowrap}
+code{font:13px var(--font-mono);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
 button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
 .wrap{max-width:960px;margin:0 auto;padding:0 16px}
@@ -52,6 +54,15 @@ button{font:inherit;color:inherit}
 .top .wrap{display:flex;align-items:center;gap:12px;height:60px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:-.01em}
 .brand svg{flex:none}
+.bot{overflow:visible;margin:-6px 0 -6px -2px}
+.bot-arm{transform-box:view-box;transform-origin:46px 42px;transform:rotate(48deg);animation:bot-wave 6s ease-in-out infinite}
+.bot-eyes{transform-box:view-box;transform-origin:32px 23px;animation:bot-blink 4.2s infinite}
+.bot-antenna{transform-box:view-box;transform-origin:32px 12px;animation:bot-bob 3s ease-in-out infinite}
+@keyframes bot-wave{0%,40%,100%{transform:rotate(48deg)}6%{transform:rotate(28deg)}12%{transform:rotate(62deg)}18%{transform:rotate(28deg)}24%{transform:rotate(62deg)}30%{transform:rotate(34deg)}36%{transform:rotate(48deg)}}
+@keyframes bot-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes bot-bob{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+.brand:hover .bot-arm{animation-duration:1.6s}
+@media (prefers-reduced-motion:reduce){.bot-arm,.bot-eyes,.bot-antenna{animation:none}}
 .top .spacer{flex:1}
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ok);background:var(--ok-soft);border-radius:999px;padding:4px 10px;white-space:nowrap}
 .icon-btn{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink-2)}
@@ -74,7 +85,7 @@ button{font:inherit;color:inherit}
 .step-h{display:flex;gap:14px;align-items:flex-start;padding:20px 22px 4px}
 .num{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;background:var(--accent-soft);color:var(--accent-text)}
 .step.is-done .num{background:var(--ok);color:#fff}
-.step h2{margin:3px 0 2px;font-size:18px;letter-spacing:-.01em}
+.step h2{margin:1px 0 3px;font-size:20.5px;line-height:1.3;letter-spacing:-.015em;font-weight:600}
 .step .lede{margin:0;color:var(--ink-2);font-size:14.5px}
 .step-b{padding:14px 22px 22px 68px}
 @media (max-width:640px){.step-b{padding:12px 16px 18px}.step-h{padding:18px 16px 2px}}
@@ -166,6 +177,7 @@ details.help .inner ul{margin:0;padding-left:18px}
 .search{flex:1 1 200px;position:relative}
 .search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--mute)}
 .search input{width:100%;padding:9px 12px 9px 34px;border:1px solid var(--line-2);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;font-size:14px}
+input,select,textarea,button{font-family:inherit}
 select,input[type=number]{padding:8px 10px;border:1px solid var(--line-2);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;font-size:14px}
 input[type=number]{width:80px}
 .toggle{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-2);cursor:pointer;user-select:none}
@@ -230,21 +242,34 @@ input[type=number]{width:80px}
 .os-switch button{border:0;background:transparent;border-radius:7px;padding:2px 9px;font-size:12px;font-weight:600;cursor:pointer;color:var(--mute)}
 .os-switch button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 
-textarea{width:100%;min-height:96px;font:13px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;background:var(--surface);color:var(--ink);resize:vertical}
+details.script-box{margin-top:14px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2)}
+details.script-box summary{cursor:pointer;list-style:none;padding:10px 14px;font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px}
+details.script-box summary::-webkit-details-marker{display:none}
+details.script-box summary::before{content:"";width:7px;height:7px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(-45deg);transition:transform .15s}
+details.script-box[open] summary::before{transform:rotate(45deg)}
+details.script-box summary .muted{font-weight:400}
+.sb-in{padding:0 14px 14px 29px}
+.sb-in p{font-size:13px;margin:0 0 8px}
+.sb-in textarea{display:block;height:150px;min-height:110px;font-size:12px;white-space:pre;overflow:auto;tab-size:2}
+textarea{width:100%;min-height:96px;font:13px/1.5 var(--font-mono) !important;border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;background:var(--surface);color:var(--ink);resize:vertical}
 
 /* FAQ */
 .faq{margin:0 0 40px}
 .faq h2{font-size:22px;letter-spacing:-.015em;margin:0 0 12px}
 .faq details{border-bottom:1px solid var(--line);padding:4px 0}
-.faq summary{cursor:pointer;list-style:none;padding:12px 0;font-weight:650;display:flex;justify-content:space-between;gap:12px}
+.faq summary{cursor:pointer;list-style:none;padding:13px 0;font-size:16.5px;font-weight:600;letter-spacing:-.005em;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-size:20px;line-height:1;color:var(--mute);font-weight:400}
 .faq details[open] summary::after{content:"–"}
 .faq .a{padding:0 0 14px;color:var(--ink-2);font-size:14.5px}
 .faq .a p{margin:0 0 8px}
 
-footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--mute);font-size:13px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+footer{border-top:1px solid var(--line);padding:26px 0 44px;color:var(--mute);font-size:13px;text-align:center}
+footer p{margin:0 auto;max-width:640px;line-height:1.6}
+.made{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:var(--ink-2);font-weight:600;font-size:13.5px}
+.made a{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 11px 4px 8px;transition:border-color .12s,color .12s}
+.made a:hover{text-decoration:none;color:var(--accent-text);border-color:var(--accent)}
+.made svg{flex:none}
 
 .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:all .2s;z-index:50;pointer-events:none;max-width:calc(100% - 32px)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -258,7 +283,54 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
 <header class="top">
   <div class="wrap">
     <div class="brand">
-      <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--accent)"/><path d="M10 16.5l4 4 8-9" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="bot" width="44" height="44" viewBox="0 0 64 64" role="img" aria-label="IG Cleanup robot mascot waving">
+        <defs>
+          <radialGradient id="botBody" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#a79dff"/><stop offset=".55" stop-color="#6d5dfc"/><stop offset="1" stop-color="#4331c9"/></radialGradient>
+          <radialGradient id="botHead" cx="32%" cy="25%" r="85%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#e9e6ff"/><stop offset="1" stop-color="#b9b1f5"/></radialGradient>
+          <linearGradient id="botScreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2550"/><stop offset="1" stop-color="#15122e"/></linearGradient>
+          <radialGradient id="botGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#8ff3ff"/><stop offset="1" stop-color="#34c6ff" stop-opacity="0"/></radialGradient>
+          <radialGradient id="botBulb" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff6d6"/><stop offset=".5" stop-color="#ffb84d"/><stop offset="1" stop-color="#f07b1d"/></radialGradient>
+          <linearGradient id="botLimb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8b7dff"/><stop offset="1" stop-color="#5443e8"/></linearGradient>
+        </defs>
+        <ellipse cx="32" cy="61" rx="15" ry="2.4" fill="#000" opacity=".14"/>
+        <!-- left arm (resting) -->
+        <rect x="11.5" y="40" width="6" height="13" rx="3" fill="url(#botLimb)" transform="rotate(12 14.5 41)"/>
+        <circle cx="12.6" cy="53.4" r="3.4" fill="url(#botHead)"/>
+        <!-- body -->
+        <rect x="17" y="37" width="30" height="21" rx="9" fill="url(#botBody)"/>
+        <path d="M21 41.5c2-2 5-2.8 9-2.8" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <circle cx="32" cy="48" r="3.4" fill="#2a2550"/>
+        <circle cx="32" cy="48" r="2" fill="#8ff3ff"/>
+        <!-- neck -->
+        <rect x="28" y="33" width="8" height="5" rx="2" fill="#4331c9"/>
+        <!-- antenna -->
+        <g class="bot-antenna">
+          <rect x="31" y="5.5" width="2" height="7" rx="1" fill="#4331c9"/>
+          <circle cx="32" cy="5" r="3.3" fill="url(#botBulb)"/>
+        </g>
+        <!-- ears -->
+        <rect x="8.5" y="18" width="5" height="10" rx="2.5" fill="url(#botBody)"/>
+        <rect x="50.5" y="18" width="5" height="10" rx="2.5" fill="url(#botBody)"/>
+        <!-- head -->
+        <rect x="11" y="11" width="42" height="24" rx="11" fill="url(#botHead)"/>
+        <path d="M17 16.5c3-2.6 8-3.5 13-3.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <!-- face screen -->
+        <rect x="16" y="16" width="32" height="15" rx="7.5" fill="url(#botScreen)"/>
+        <g class="bot-eyes">
+          <circle cx="25" cy="23" r="4.2" fill="url(#botGlow)" opacity=".7"/>
+          <circle cx="39" cy="23" r="4.2" fill="url(#botGlow)" opacity=".7"/>
+          <ellipse cx="25" cy="23" rx="2.1" ry="2.5" fill="#dffbff"/>
+          <ellipse cx="39" cy="23" rx="2.1" ry="2.5" fill="#dffbff"/>
+        </g>
+        <path d="M28.5 27.3q3.5 2.4 7 0" stroke="#8ff3ff" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <circle cx="20" cy="27.3" r="1.6" fill="#ff8fb1" opacity=".55"/>
+        <circle cx="44" cy="27.3" r="1.6" fill="#ff8fb1" opacity=".55"/>
+        <!-- right arm (waving), drawn last so it's in front -->
+        <g class="bot-arm">
+          <rect x="43" y="28" width="6" height="15" rx="3" fill="url(#botLimb)"/>
+          <circle cx="46" cy="26.5" r="3.8" fill="url(#botHead)"/>
+        </g>
+      </svg>
       IG Cleanup
     </div>
     <div class="spacer"></div>
@@ -298,17 +370,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
             <span class="path"><b>Settings</b><i>›</i><b>Accounts Center</b><i>›</i><b>Your information and permissions</b><i>›</i><b>Download your information</b></span></li>
           <li>Tap <b>Download or transfer information</b>, pick your account, then choose <b>Some of your information</b>.</li>
           <li>Tick only <b>Followers and following</b> and tap <b>Next</b>. Choose <b>Download to device</b>.</li>
-          <li>Set these three options. They matter:
+          <li>Set these three options carefully:
             <div class="choices">
               <div class="choice"><small>Date range</small><strong>All time</strong></div>
               <div class="choice"><small>Format</small><strong>JSON</strong> (not HTML)</div>
               <div class="choice"><small>Media quality</small>Any (not used)</div>
             </div>
           </li>
-          <li>Tap <b>Create files</b>. Instagram emails you when it's ready, usually within minutes, sometimes a few hours. Download the <b>ZIP file</b> to your computer.</li>
+          <li>Tap <b>Create files</b>. Instagram emails you when it's ready, usually within minutes but sometimes after a few hours. Download the <b>ZIP file</b> to your computer.</li>
         </ol>
         <div class="callout warn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg>
-          <div><b>Choose "All time", not "Last year".</b> With a shorter range, old friends who follow you would be missing, and the tool would wrongly say they don't follow you back.</div></div>
+          <div><b>Choose "All time", not "Last year".</b> With a shorter range, people who followed you before then would be missing, and the tool would wrongly say they don't follow you back.</div></div>
         <details class="help"><summary>Can't find it?</summary><div class="inner">
           <p>Instagram moves this menu sometimes. Try these:</p>
           <ul>
@@ -344,10 +416,10 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
           <p>The tool needs these files from the export (inside <code>connections/followers_and_following</code>):</p>
           <ul>
             <li><code>following.json</code>: people you follow</li>
-            <li><code>followers_1.json</code> (and <code>_2</code>, <code>_3</code>… for big accounts): people who follow you</li>
-            <li><code>pending_follow_requests.json</code>: requests you sent that are still waiting (only there if you have some)</li>
+            <li><code>followers_1.json</code> (plus <code>_2</code>, <code>_3</code> and so on for large accounts): people who follow you</li>
+            <li><code>pending_follow_requests.json</code>: requests you sent that are still waiting (only included if you have any)</li>
           </ul>
-          <p style="margin-top:8px">You can add files one by one. Each file adds to what's already loaded. If you only see HTML files, the export was made in HTML format: request it again and choose <b>JSON</b>.</p>
+          <p style="margin-top:8px">You can add files one by one. Each file adds to what's already loaded. If you only see HTML files, the export was made in HTML format. Request it again and choose <b>JSON</b>.</p>
         </div></details>
         <p class="muted" id="demoNote" style="font-size:13px;margin:12px 0 0">Want to look around first? <a href="#" id="demoBtn">Try it with made-up sample data</a>.</p>
       </div>
@@ -367,14 +439,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
 
         <div class="quick" id="quick">
           <span>Quick pick:</span>
-          <button class="btn sm primary" id="pickNext">Select the next <span id="pickN">50</span></button>
-          <span class="muted" style="font-size:13px">(the oldest first, skipping anyone you've kept)</span>
+          <button class="btn sm primary" id="pickNext"><span>Select the next <span id="pickN">50</span></span></button>
+          <span class="muted" id="pickHint" style="font-size:13px">(oldest first, skipping anyone you've kept)</span>
         </div>
 
         <div class="toolbar">
           <div class="search">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-            <input type="search" id="q" placeholder="Search a username…" aria-label="Search username">
+            <input type="search" id="q" placeholder="Search usernames…" aria-label="Search usernames">
           </div>
           <select id="sort" aria-label="Sort">
             <option value="old">Oldest first</option>
@@ -396,7 +468,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
         <div class="selbar" id="selbar">
           <b id="selCount">0 selected</b>
           <button class="btn sm" id="keepSel" title="Never remove these">Keep</button>
-          <button class="btn sm" id="doneSel" title="I already handled these">Mark done</button>
+          <button class="btn sm" id="doneSel" title="I've already handled these">Mark as done</button>
           <button class="btn sm" id="exportSel">Save list (.txt)</button>
           <button class="btn sm ghost" id="selNone" style="color:inherit">Clear</button>
           <span class="spacer"></span>
@@ -405,7 +477,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
 
         <details class="help"><summary>What do "Keep" and "Done" mean?</summary><div class="inner">
           <ul>
-            <li><b>Keep</b> protects an account: celebrities, brands or friends you want to keep following even though they don't follow back. Kept accounts are never included in a cleanup run.</li>
+            <li><b>Keep</b> protects an account, such as a celebrity, brand or friend you want to keep following even though they don't follow you back. Kept accounts are never included in a cleanup run.</li>
             <li><b>Done</b> means the account has been handled. The tool hides it so you can pick up where you left off next time.</li>
             <li>Both are saved in this browser on this computer, along with your loaded lists, so you can close the page and come back tomorrow.</li>
           </ul>
@@ -440,19 +512,27 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
           </button>
         </div>
 
+        <details class="script-box" id="scriptBox" open>
+          <summary>The script <span class="muted">(read it before you run it, if you like)</span></summary>
+          <div class="sb-in">
+            <p class="muted">This is exactly what gets copied. It only opens the profiles listed at the bottom and clicks Unfollow, and it doesn't send anything anywhere. Drag the bottom-right corner to make the box taller.</p>
+            <textarea id="scriptView" readonly spellcheck="false" aria-label="Cleanup script"></textarea>
+          </div>
+        </details>
+
         <div class="sub-h">Then, on a computer (not your phone):</div>
         <ol class="howto">
           <li>Open <b>instagram.com</b> in <b>Chrome</b> or <b>Edge</b> and make sure you're logged in.</li>
           <li>Open the <b>Console</b> by pressing
             <span id="kbdWin"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd></span><span id="kbdMac" class="hidden"><kbd>⌘ Cmd</kbd> + <kbd>⌥ Option</kbd> + <kbd>J</kbd></span>
             <span class="os-switch" role="group" aria-label="Your computer"><button id="osWin" class="on">Windows</button><button id="osMac">Mac</button></span>.
-            A panel opens on the side or bottom of the page. Don't worry, you can't break anything by looking.</li>
+            A panel opens at the side or bottom of the page. Don't worry: you can't break anything by looking.</li>
           <li>Click in the Console, paste with
             <span class="kbdPaste"><kbd>Ctrl</kbd> + <kbd>V</kbd></span>
             and press <kbd>Enter</kbd>.
             <br><span class="muted" style="font-size:13.5px">If Chrome says <i>"Don't paste code you don't understand"</i>, type <code>allow pasting</code>, press Enter, then paste again. That warning appears the first time for everyone.</span></li>
           <li>A small <b>IG Cleanup</b> box appears at the top right of Instagram. Click <b>Start</b>.</li>
-          <li>A small window opens and works through the accounts. <b>Leave both windows open</b>. You can use other apps meanwhile. Click <b>Stop</b> any time.</li>
+          <li>A small window opens and works through the accounts. <b>Leave both windows open.</b> You can use other apps in the meantime. Click <b>Stop</b> at any time.</li>
           <li>When it finishes, the box shows the list of finished usernames, already selected. Copy it with <span class="kbdCopy"><kbd>Ctrl</kbd> + <kbd>C</kbd></span> and paste it into step 5 below.</li>
         </ol>
 
@@ -460,13 +540,13 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
           <div><b>If Instagram says "Try Again Later", stop for the day.</b> The script stops automatically when it sees that message. Tomorrow, pick the Careful speed. Blocks are temporary, but pushing through them makes them last longer.</div></div>
 
         <details class="help"><summary>The small window didn't open</summary><div class="inner">
-          <p>Your browser blocked the pop-up. Look for a blocked-pop-up icon at the right end of the address bar, choose <b>Always allow pop-ups from instagram.com</b>, then paste the script again.</p>
+          <p>Your browser blocked the pop-up. Look for the blocked pop-up icon at the right end of the address bar, choose <b>Always allow pop-ups from instagram.com</b>, then paste the script again.</p>
         </div></details>
         <details class="help"><summary>It says it couldn't find the buttons</summary><div class="inner">
           <p>The script looks for the English words <b>Requested</b>, <b>Following</b> and <b>Unfollow</b>. If Instagram is set to another language, switch it to English (<span class="path"><b>Settings</b><i>›</i><b>Language</b></span>) while you run the cleanup, then switch back.</p>
         </div></details>
         <details class="help"><summary>I'd rather do it by hand</summary><div class="inner">
-          <p>That's the safest option. In step 3, click any username to open that profile, then tap <b>Following</b> or <b>Requested</b> → <b>Unfollow</b>. Afterwards, tick the account and click <b>Mark done</b>.</p>
+          <p>That's the safest option. In step 3, click any username to open that profile, then tap <b>Following</b> or <b>Requested</b> → <b>Unfollow</b>. Afterwards, tick the account and click <b>Mark as done</b>.</p>
         </div></details>
       </div>
     </section>
@@ -475,14 +555,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
     <section class="step locked" id="step5">
       <div class="step-h"><div class="num">5</div><div>
         <h2>Tick off what's finished</h2>
-        <p class="lede">Paste the list from the Instagram box so the tool knows who's done. They'll disappear from your lists, and the next "Select the next 50" picks up where you left off.</p>
+        <p class="lede">Paste the list from the Instagram box so the tool knows who's done. Those accounts disappear from your lists, and the next "Select the next 50" picks up where you left off.</p>
       </div></div>
       <div class="step-b">
         <textarea id="doneIn" placeholder="Paste finished usernames here (one per line)"></textarea>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
           <button class="btn primary" id="applyDone">Mark as done</button>
           <span class="spacer" style="flex:1"></span>
-          <button class="btn ghost danger" id="resetMarks">Reset all Keep / Done marks</button>
+          <button class="btn ghost danger" id="resetMarks">Reset all Keep/Done marks</button>
         </div>
         <div class="callout info"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
           <div>Come back later for the next batch. Your lists and progress are saved in this browser. After a big cleanup, you can download a fresh export from Instagram to see your updated numbers.</div></div>
@@ -493,24 +573,24 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
   <section class="faq" id="faq">
     <h2>Questions</h2>
     <details><summary>Is this really private?</summary><div class="a">
-      <p>Yes. This page is a single file with no server behind it. The browser is told to block it from connecting to anything on the internet (a "Content Security Policy"), so even by mistake it couldn't send your data anywhere. You can check the code yourself; it's all in one file.</p>
+      <p>Yes. This page is a single file with no server behind it. The browser is told to block it from connecting to anything on the internet (a "Content Security Policy"), so it couldn't send your data anywhere, even by mistake. You can check the code yourself; it's all in one file.</p>
       <p>The cleanup script runs inside <i>your</i> Instagram tab, using the login you already have. It never sees or asks for your password.</p>
     </div></details>
     <details><summary>Can my account get banned?</summary><div class="a">
-      <p>Instagram limits how fast anyone can unfollow, and going too fast gets a temporary "Try Again Later" block, usually for a few hours to a day. That's why the script waits a random time between accounts and stops as soon as Instagram complains.</p>
-      <p>Automating actions is against Instagram's terms of use, so there is always some risk. Keep runs small and use the Balanced or Careful speed. For zero risk, do it by hand from the lists in step 3.</p>
+      <p>Instagram limits how fast anyone can unfollow, and going too fast triggers a temporary "Try Again Later" block, usually for a few hours to a day. That's why the script waits a random time between accounts and stops as soon as Instagram complains.</p>
+      <p>Automating actions is against Instagram's Terms of Use, so there is always some risk. Keep runs small and use the Balanced or Careful speed. For zero risk, do it by hand from the lists in step 3.</p>
     </div></details>
     <details><summary>Why not just use one of the "unfollow" apps?</summary><div class="a">
       <p>Most of them ask for your Instagram password or full account access. That hands your account to a stranger's server. This tool never needs either.</p>
     </div></details>
     <details><summary>Why do I need a computer? Can I use my phone?</summary><div class="a">
-      <p>You can do steps 1–3 on a phone, but step 4 needs the browser's Console, which needs a desktop browser. Chrome, Edge and Brave work best with the steps above. You can also do everything by hand on your phone using the lists.</p>
+      <p>You can do steps 1–3 on a phone, but step 4 uses the browser's Console, which only desktop browsers have. Chrome, Edge and Brave work best with the steps above. You can also do everything by hand on your phone using the lists.</p>
     </div></details>
     <details><summary>How long will it take?</summary><div class="a">
-      <p>At the Balanced speed, about 100 accounts an hour. 1,000 old follow requests is roughly three or four days at 2–3 runs a day.</p>
+      <p>At the Balanced speed, about 100 accounts an hour. 1,000 old follow requests take roughly three or four days at 2–3 runs a day.</p>
     </div></details>
     <details><summary>What is the "Console", and is it safe to paste things there?</summary><div class="a">
-      <p>It's a built-in developer tool in every desktop browser that lets you run small scripts on the page you're looking at. Only paste code you trust. That's why Chrome warns you the first time. This script is readable plain text; you can paste it into any AI assistant and ask what it does before running it.</p>
+      <p>It's a built-in developer tool in every desktop browser that lets you run small scripts on the page you're looking at. Chrome warns you the first time because you should only paste code you trust. This script is readable plain text; you can paste it into any AI assistant and ask what it does before running it.</p>
     </div></details>
     <details><summary>The tool shows old numbers after I unfollowed people</summary><div class="a">
       <p>The lists come from your export, which is a snapshot. Paste finished usernames into step 5 to hide them, or download a fresh export from Instagram and open it here again.</p>
@@ -520,8 +600,13 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
 
 <footer>
   <div class="wrap">
-    <span>IG Cleanup: free and open source (MIT). Not affiliated with Instagram or Meta.</span>
-    <span>Use at your own risk and respect Instagram's limits.</span>
+    <p>IG Cleanup is free and open source (MIT licence). It is not affiliated with Instagram or Meta. Use it at your own risk and respect Instagram's limits.</p>
+    <div class="made">Made by Mahmood Saeed
+      <a href="https://www.linkedin.com/in/mahmood-i-saeed" target="_blank" rel="noopener noreferrer" aria-label="Mahmood Saeed on LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="5" fill="#0A66C2"/><path fill="#fff" d="M7.1 9.5h2.6v8.3H7.1zm1.3-4.1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm2.9 4.1h2.5v1.1h.04c.35-.66 1.2-1.36 2.47-1.36 2.64 0 3.13 1.74 3.13 4v4.55h-2.6v-4.03c0-.96-.02-2.2-1.34-2.2-1.34 0-1.55 1.05-1.55 2.13v4.1h-2.6z"/></svg>
+        LinkedIn
+      </a>
+    </div>
   </div>
 </footer>
 
@@ -725,7 +810,7 @@ const TABS = {
   notBack:   { label: "Don't follow back", desc: "People you follow who don't follow you back. Protect any you want to keep, like brands, artists or friends.", list: () => [...following].filter(([u]) => !followers.has(u)), act: true },
   pending:   { label: 'Pending requests', desc: 'Follow requests you sent to private accounts that were never accepted. Removing them cancels the request.', list: () => [...pending], act: true },
   following: { label: 'All following', desc: 'Your full following list.', list: () => [...following], act: true },
-  fans:      { label: 'Your fans', desc: "People who follow you that you don't follow. This list is just for your information.", list: () => [...followers].filter(([u]) => !following.has(u)), act: false }
+  fans:      { label: 'Your fans', desc: "People who follow you but whom you don't follow back. This list is for information only.", list: () => [...followers].filter(([u]) => !following.has(u)), act: false }
 };
 function filtered(){
   const q = $('q').value.trim().toLowerCase().replace(/^@/, '');
@@ -758,6 +843,9 @@ function render(){
   const act = TABS[tab].act;
   $('quick').classList.toggle('hidden', !act);
   $('pickN').textContent = limit();
+  const order = { old: 'oldest first', new: 'newest first', az: 'A to Z' }[$('sort').value];
+  const q = $('q').value.trim().replace(/^@/, '');
+  $('pickHint').textContent = `(${order}${q ? `, matching "${q}"` : ''}, skipping anyone you've kept)`;
   const rows = filtered();
   const slice = rows.slice(0, shown);
   $('rows').innerHTML = slice.length ? slice.map(([u, ts]) => {
@@ -791,6 +879,8 @@ function updateSel(){
   const L = Math.min(limit(), todo.length), sp = SPEEDS[speed()];
   const mins = Math.round(L * ((sp[0] + sp[1]) / 2 + 6) / 60);
   $('copyScript').disabled = !todo.length;
+  $('scriptBox').classList.toggle('hidden', !todo.length);
+  if (todo.length){ const [a, b] = SPEEDS[speed()]; $('scriptView').value = buildScript(todo, a, b, limit()); }
   $('runSummary').innerHTML = todo.length
     ? `This run will remove <b>${L.toLocaleString()}</b> account${L === 1 ? '' : 's'}${todo.length > L ? ` (of ${todo.length.toLocaleString()} selected; run again for the rest)` : ''}. It takes about <b>${mins < 2 ? '1–2 minutes' : mins + ' minutes'}</b>.`
     : 'Select accounts in step 3.';
@@ -815,17 +905,15 @@ $('selAllBox').onchange = e => {
   render();
 };
 ['q', 'sort', 'hideKeep', 'hideDone'].forEach(id => $(id).addEventListener('input', () => { shown = 200; render(); }));
+// Picks in the order the list is currently sorted (oldest first by default), within any search.
 $('pickNext').onclick = () => {
-  const saved = $('sort').value; $('sort').value = 'old';
-  const q = $('q').value; $('q').value = '';
   const next = filtered().filter(([u]) => !keep.has(u) && !done.has(u)).slice(0, limit());
-  $('sort').value = saved; $('q').value = q;
   selected = new Set(next.map(([u]) => u));
   render();
   toast(next.length ? `Selected ${next.length} account${next.length === 1 ? '' : 's'}` : 'Nothing left to select in this list 🎉');
 };
 $('selNone').onclick = () => { selected.clear(); render(); };
-$('keepSel').onclick = () => { const n = selected.size; selected.forEach(u => keep.add(u)); selected.clear(); saveMarks(); render(); toast(`${n} protected`); };
+$('keepSel').onclick = () => { const n = selected.size; selected.forEach(u => keep.add(u)); selected.clear(); saveMarks(); render(); toast(`${n} kept`); };
 $('doneSel').onclick = () => { const n = selected.size; selected.forEach(u => done.add(u)); selected.clear(); saveMarks(); render(); toast(`${n} marked as done`); };
 $('exportSel').onclick = () => {
   const a = document.createElement('a');
@@ -852,13 +940,13 @@ $('copyScript').onclick = async () => {
     const ta = document.createElement('textarea'); ta.value = src; ta.style.position = 'fixed'; ta.style.opacity = '0';
     document.body.appendChild(ta); ta.select(); try { ok = document.execCommand('copy'); } catch {} ta.remove();
   }
-  toast(ok ? 'Script copied. Now paste it on instagram.com (see below)' : 'Could not copy automatically. Please try again.');
+  toast(ok ? 'Script copied. Now paste it on instagram.com (see below)' : 'Couldn\'t copy automatically. Please try again.');
 };
 
 function buildScript(list, min, max, lim){
   return `// IG Cleanup: removes the accounts you picked, by clicking Instagram's own buttons in YOUR browser.
 // No password, no data sent anywhere. ${Math.min(lim, list.length)} account(s), ${min}-${max}s apart.
-(${String(igRunner)})(${JSON.stringify(list)}, ${min}, ${max}, ${lim});`;
+(${String(igRunner)})(${JSON.stringify(list.slice(0, lim), null, 2)}, ${min}, ${max}, ${lim});`;
 }
 
 // This function is serialised into the script you paste on instagram.com. It never runs inside this tool.
@@ -891,7 +979,7 @@ async function igRunner(USERS, MIN, MAX, LIMIT){
   await new Promise(res => panel.querySelector('#igc-start').onclick = res);
   panel.querySelector('#igc-start').disabled = true;
   const w = window.open('about:blank', 'igc_worker', 'width=480,height=760,left=40,top=40');
-  if (!w) return status('Your browser blocked the popup window. Allow popups for instagram.com and run again.', '#c00');
+  if (!w) return status('Your browser blocked the pop-up window. Allow pop-ups for instagram.com and run the script again.', '#c00');
 
   function findBtn(doc, labels, root){
     const els = [...(root || doc).querySelectorAll('button, [role="button"]')];
@@ -978,7 +1066,7 @@ $('applyDone').onclick = () => {
   toast(`${names.length} marked as done`);
 };
 $('resetMarks').onclick = () => {
-  if (!confirm('Clear every Keep and Done mark? This can’t be undone.')) return;
+  if (!confirm('Clear every Keep and Done mark? This can\'t be undone.')) return;
   keep.clear(); done.clear(); saveMarks(); render(); toast('All marks cleared');
 };
 
